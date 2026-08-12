@@ -1,4 +1,5 @@
-# TinyALSA Research — Overview & Reading Order
+sudo apt update
+sudo apt install qt6-declarative-dev# TinyALSA Research — Overview & Reading Order
 
 **Goal (Phase 2):** Understand everything TinyALSA provides before wrapping it — read the API, sort it into categories, and end up knowing exactly which functions your Audio HAL will actually need.
 
