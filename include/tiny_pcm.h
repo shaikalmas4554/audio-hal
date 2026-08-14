@@ -6,14 +6,14 @@ enum tiny_pcm_direction {
     TINY_PCM_CAPTURE   // for capture
 };
 
-enum tiny_pcm_format_t {
+typedef enum tiny_pcm_format_t {
     TINY_PCM_FORMAT_INVALID = -1, 
     TINY_PCM_FORMAT_S16_LE,        // signed 16 bit Little Endian
     TINY_PCM_FORMAT_S32_LE,        // signed 32 bit Little Endian
     TINY_PCM_FORMAT_S8,            // signed 8 bit Little Endian
     TINY_PCM_FORMAT_S24_LE,        // signed 24 bit (32-bit in memory) Little Endian
     TINY_PCM_FORMAT_S24_3LE        // signed 24 bit, Little Endian
-};
+}tiny_pcm_format_t;
 
 typedef struct {
     unsigned int channels; 
