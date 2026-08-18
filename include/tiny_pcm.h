@@ -13,7 +13,7 @@ typedef enum tiny_pcm_format_t {
     TINY_PCM_FORMAT_S8,            // signed 8 bit Little Endian
     TINY_PCM_FORMAT_S24_LE,        // signed 24 bit (32-bit in memory) Little Endian
     TINY_PCM_FORMAT_S24_3LE        // signed 24 bit, Little Endian
-}tiny_pcm_format_t;
+} tiny_pcm_format_t;
 
 typedef struct {
     unsigned int channels; 
@@ -25,11 +25,7 @@ typedef struct {
 
 struct tiny_pcm;
 
-struct tiny_pcm *tiny_pcm_open( unsigned int card, 
-    unsigned int device, 
-    enum tiny_pcm_direction direction, 
-    const tiny_pcm_config_t *config
-);
+struct tiny_pcm *tiny_pcm_open( unsigned int card, unsigned int device, enum tiny_pcm_direction direction, const tiny_pcm_config_t *config);
 
 int tiny_pcm_close(struct tiny_pcm *pcm);
 
