@@ -80,6 +80,19 @@ struct tiny_pcm *tiny_pcm_open( unsigned int card, unsigned int device, enum tin
         return NULL;
     }
 
+    /* tinyalsa's pcm_open() virtually never returns NULL, even when the
+     * requested card/device/config could not actually be negotiated
+     * with the hardware (e.g. wrong card, unsupported rate/format).
+     * It returns a valid-looking but "not ready" handle instead, whose
+     * internal buffers were never set up. Writing/reading through such
+     * a handle can crash inside tinyalsa (NULL mmap access) rather than
+     * returning a clean error - so is_ready() must be checked here. */
+    if (!pcm_is_ready(tiny_pcm->handle)) {
+        pcm_close(tiny_pcm->handle);
+        free(tiny_pcm);
+        return NULL;
+    }
+
     return tiny_pcm;
 }
 
@@ -112,7 +125,7 @@ int tiny_pcm_write(
     if (pcm == NULL)
         return -1;
 
-    return pcm_write(pcm->handle, data, frame_count);
+    return pcm_writei(pcm->handle, data, frame_count);
 }
 
 int tiny_pcm_read(
@@ -123,7 +136,7 @@ int tiny_pcm_read(
     if (pcm == NULL)
         return -1;
 
-    return pcm_read(pcm->handle, data, frame_count);
+    return pcm_readi(pcm->handle, data, frame_count);
 }
 
 const char *tiny_pcm_get_error(const struct tiny_pcm *pcm)
